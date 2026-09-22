@@ -1,0 +1,195 @@
+# ============================================================
+#                    SECRETS / ENVIRONMENT
+# ============================================================
+
+.env
+.env.local
+.env.*.local
+
+env
+env/
+.venv/
+venv/
+ENV/
+
+# Keep the public template
+!.env.example
+
+
+# ============================================================
+#                         MODELS
+# ============================================================
+
+models/
+checkpoints/
+checkpoint-*/
+.cache/
+huggingface/
+
+
+# ============================================================
+#                 CHROME / BROWSER PROFILES
+# ============================================================
+
+BotChromeProfile/
+*ChromeProfile*/
+chrome_profile/
+chrome_profiles/
+
+user-data-dir/
+chromedriver.log
+
+**/Cache/
+**/Code Cache/
+**/GPUCache/
+**/Service Worker/
+**/Session Storage/
+**/Sessions/
+**/Local Storage/
+**/IndexedDB/
+**/Network/
+**/Crashpad/
+
+
+# ============================================================
+#                         PYTHON
+# ============================================================
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+.coverage
+coverage.xml
+htmlcov/
+
+
+# ============================================================
+#                   JUPYTER / NOTEBOOKS
+# ============================================================
+
+.ipynb_checkpoints/
+
+
+# ============================================================
+#                    DATABASES / RUNTIME
+# ============================================================
+
+# Keep public news databases in GitHub:
+# database/Bloomberg news.db
+# database/Company news.db
+# database/EDGAR filings.db
+# database/Forbes news.db
+# database/Yahoo news.db
+
+# Chroma vector database is generated runtime state
+database/chroma_db/
+
+# Private/internal runtime databases
+database/logger/*.db
+database_test/
+
+# SQLite runtime files
+*.db-wal
+*.db-shm
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+
+
+# ============================================================
+#                 PRIVATE BOT STATE / TRADES
+# ============================================================
+
+# Wallet / portfolio / execution state
+config/ledger.csv
+config/state.json
+config/wallet_sim_state.json
+config/alpaca.json
+
+portfolio.json
+wallet.json
+bot_state.json
+scheduler_state.json
+
+# Runtime trade data
+trades/*.csv
+trades/*.json
+
+# Keep placeholder files so directories remain in Git
+!trades/.gitkeep
+!database/logger/.gitkeep
+
+
+# ============================================================
+#                         LOGS
+# ============================================================
+
+logs/
+*.log
+
+
+# ============================================================
+#                       TEMP FILES
+# ============================================================
+
+tmp/
+temp/
+*.tmp
+
+*.bak
+*.backup
+*.old
+*.orig
+
+
+# ============================================================
+#                      IDE / EDITORS
+# ============================================================
+
+.vscode/
+.idea/
+.VSCodeCounter/
+
+*.swp
+*.swo
+
+
+# ============================================================
+#                    OPERATING SYSTEM
+# ============================================================
+
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+
+# ============================================================
+#                    BUILD / PACKAGING
+# ============================================================
+
+build/
+dist/
+*.egg-info/
+
+
+# ============================================================
+#                    FRONTEND / NODE
+# ============================================================
+
+node_modules/
+
+frontend/dist/
+frontend/build/
+
+
+# ============================================================
+#              LEGACY / SENSITIVE CONFIG FILES
+# ============================================================
+
+scrappers/Forbes/Groq API.json
