@@ -71,24 +71,54 @@ The purpose is to let `Broker` coordinate the workflow without knowing *how* an 
 
 ## Preliminary evaluation
 
-Aroogula has been exercised across **two development test windows totaling 32 days**. These runs were used to find implementation problems, evaluate trade lifecycle behavior, and iterate on risk/execution logic — **not to establish expected returns**.
+Aroogula has been evaluated across **two development test windows totaling 32 active trading days**. These runs were used to test the trading workflow, inspect capital utilization, identify implementation problems, and iterate on the strategy and risk logic. They are **not intended to establish expected future returns**.
 
-The most recent retained local-simulation log covered **12 active trading days** between July 28 and August 31, 2026:
+### Logged simulation window
 
-| Metric | Observed value |
-| --- | ---: |
-| Starting equity | $10,000.00 |
-| Ending equity | $10,085.60 |
-| Net change | +$85.60 (+0.856%) |
-| Completed trades | 159 |
-| Profitable trades | 82 |
-| Losing trades | 76 |
-| Breakeven trades | 1 |
-| Win rate | 51.6% |
-| Profit factor | 1.51 |
-| Maximum observed drawdown | -0.96% |
+The most recent test window was recorded through Aroogula's structured equity logger and contained **12 active trading days**, spanning July 28 through August 28, 2026.
 
-These numbers are **preliminary local-simulation results**. The sample is small, strategy parameters were still under development, and the run is neither a statistically meaningful out-of-sample validation nor evidence of future profitability. The repository intentionally does not publish the raw private trading databases.
+| Metric                   | Observed value |
+| ------------------------ | -------------: |
+| Initial equity           |     $10,000.00 |
+| Final equity             |     $10,146.19 |
+| Observed profit          |       +$146.19 |
+| Return on total account  |         +1.46% |
+| Active trading days      |             12 |
+| Average deployed capital |      $2,431.99 |
+
+Because the bot frequently had only a fraction of the account exposed to the market, the analysis also tracks **capital-days**: the sum of average deployed capital across active trading days.
+
+For this logged window, profit relative to deployed capital corresponded to approximately **0.50% per capital-day**.
+
+### Earlier development window
+
+An earlier test covered **20 active trading days** and produced an observed profit of **$84.44**. The structured equity logger had not yet been implemented during this period, so average deployed capital was recorded manually at approximately **$1,300**.
+
+This earlier window is retained as historical development evidence, but its exposure measurements are less reproducible than those from the structured logger.
+
+### Combined capital-efficiency analysis
+
+Across both development windows:
+
+| Metric                                                   |     Value |
+| -------------------------------------------------------- | --------: |
+| Active trading days                                      |        32 |
+| Combined observed profit                                 |   $230.63 |
+| Combined capital-days                                    | 55,183.88 |
+| Return per capital-day                                   |     0.42% |
+| Annualized capital-efficiency extrapolation — simple     |   105.32% |
+| Annualized capital-efficiency extrapolation — compounded |   186.05% |
+
+The annualized figures are **mathematical extrapolations of short-window capital efficiency**, not observed annual returns or forecasts. They answer the hypothetical question of what the measured return per unit of deployed capital would imply if it remained unchanged across 252 trading days.
+
+That assumption is intentionally strong and is not supported by the current sample size.
+
+These results should therefore be interpreted only as **preliminary local-simulation evidence**. The evaluation covers a short development period, the first window relies partly on manually recorded exposure data, strategy parameters were still evolving, and local simulation does not reproduce all effects of real execution such as slippage, latency, partial fills, or broker-side order behavior.
+
+The next validation stage is Alpaca paper execution with broker-reported fills, reconciliation, and a substantially longer out-of-sample evaluation period.
+
+The detailed analysis is available in `notebooks/03_strategy_performance_analysis.ipynb`. The private runtime trading database is intentionally excluded from the repository.
+
 
 ## Current engineering work
 

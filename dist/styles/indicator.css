@@ -1,0 +1,200 @@
+.indicators-wrapper {
+  position: relative;
+}
+
+.indicators-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 10px;
+  width: 195px;
+  padding: 14px;
+  gap: 10px;
+  background-color: #101116;
+  border-radius: var(--radius-lg);
+  color: #003822;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+
+  transform: translate(-50%, -6px) scale(0.98);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    visibility 0.18s ease;
+}
+
+.indicators-menu.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform: translate(-50%, 0) scale(1);
+}
+
+.indicator-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+
+.indicator-column h3 {
+  font-size: 1.1rem;
+  margin: 0 0 16px;
+  font-weight: 500;
+}
+
+.indicator-row {
+  width: 100%;
+  min-height: 52px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 12px;
+  margin-bottom: 0;
+
+  border-radius: 12px;
+  background: #18191f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.indicator-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+}
+
+.indicator-info-button {
+  width: 18px;
+  height: 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(36, 210, 108, 0.35);
+  border-radius: 999px;
+
+  background: rgba(36, 210, 108, 0.1);
+  color: #24d26c;
+
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1;
+
+  cursor: help;
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.indicator-info-button:hover {
+  background: rgba(36, 210, 108, 0.18);
+  border-color: rgba(36, 210, 108, 0.75);
+  color: #ffffff;
+
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(36, 210, 108, 0.22);
+}
+
+.indicator-info-button:focus-visible {
+  outline: none;
+  border-color: #24d26c;
+  box-shadow: 0 0 0 3px rgba(36, 210, 108, 0.18);
+}
+
+.indicator-info-button:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.indicator-name {
+  font-size: 0.92rem;
+  color: #24d26c;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.indicator-description {
+  font-size: 0.72rem;
+  color: #7d7d88;
+  font-weight: 400;
+}
+
+.indicator-row small {
+  margin-top: 3px;
+  font-size: 0.75rem;
+  color: #5e5e6a;
+  font-weight: 200;
+}
+
+.indicator-switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.indicator-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.indicator-slider {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  background: #575362;
+  border-radius: 999px;
+  transition: 0.25s;
+}
+
+.indicator-slider::before {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 4px;
+  top: 4px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.25s;
+}
+
+.indicator-switch input:checked + .indicator-slider {
+  background: #24d26c;
+}
+
+.indicator-switch input:checked + .indicator-slider::before {
+  transform: translateX(22px);
+}
+
+.indicator-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.indicator-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--indicator-color);
+  box-shadow: 0 0 8px var(--indicator-color);
+}

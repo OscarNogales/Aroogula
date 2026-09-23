@@ -1,0 +1,219 @@
+.compare-wrapper {
+  position: relative;
+}
+
+.compare-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 10px;
+  width: 280px;
+  padding: 14px;
+  gap: 10px;
+  background-color: #101116;
+  border-radius: var(--radius-lg);
+  color: #003822;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translate(-50%, -6px) scale(0.98);
+
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    visibility 0.18s ease;
+}
+
+.compare-menu.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform: translate(-50%, 0) scale(1);
+}
+
+.compare-menu input {
+  width: 80%;
+  background-color: #252525;
+  color: #22d67f;
+  caret-color: #22d67f;
+  border-radius: 12px;
+  outline: none;
+  padding: 12px 16px;
+  border: none;
+  margin-top: 10px;
+}
+
+.compare-suggestions {
+  width: 80%;
+  max-height: 140px;
+  height: auto;
+  overflow-y: auto;
+  margin-top: 8px;
+  border-radius: 12px;
+  background: #18191f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px;
+  display: grid;
+  gap: 6px;
+  scrollbar-width: none;
+}
+
+.compare-suggestions button {
+  width: 100%;
+  background-color: #202229;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  color: #24d26c;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.18s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.compare-suggestion strong {
+  color: #24d26c;
+}
+
+.compare-suggestion span {
+  color: #9a9aa3;
+  font-size: 0.75rem;
+  margin-top: 3px;
+}
+
+.compare-suggestions button:hover,
+.compare-suggestion:focus-visible {
+  background: rgba(36, 210, 108, 0.1);
+  border-color: rgba(36, 210, 108, 0.38);
+  transform: translateX(2px);
+}
+
+.compare-suggestion:hover span {
+  color: #d4d4d8;
+}
+
+.compare-suggestion:active {
+  background: rgba(37, 212, 110, 0.1);
+  border-color: rgba(31, 173, 90, 0.38);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.25);
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.active-comparisons {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #18191f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.comparison-chip {
+  min-width: 88px;
+  width: fit-content;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  padding: 6px 7px 6px 11px;
+
+  background: #202229;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.comparison-chip:hover {
+  background: rgba(241, 91, 91, 0.07);
+  border-color: rgba(241, 91, 91, 0.3);
+  transform: translateY(-1px);
+}
+
+.comparison-chip-ticker {
+  color: #f4f4f5;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.comparison-chip-remove {
+  width: 22px;
+  height: 22px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(241, 91, 91, 0.14);
+  color: #ff6a73;
+
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.comparison-chip-remove:hover {
+  background: #f15b5b;
+  color: white;
+  transform: scale(1.08);
+}
+
+.comparison-chip-remove:active {
+  transform: scale(0.92);
+}
+
+.compare-add-button {
+  width: 75%;
+  color: #000000;
+  border-radius: 24px;
+  padding: 8px 16px;
+  border: none;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.compare-add-button:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 1px #000000;
+}
+
+.compare-add-button:active {
+  opacity: 0.8;
+  box-shadow: inset 0 2px 3px #000000;
+}

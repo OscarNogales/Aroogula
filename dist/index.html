@@ -1,0 +1,1050 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/lightweight-charts@5.2.0/dist/lightweight-charts.standalone.production.js"></script>
+    <title>Aroogula</title>
+
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+
+  <body>
+    <div class="dashboard">
+      <section class="top-grid">
+        <div class="panel chart-panel">
+          <div class="chart-topbar">
+            <div class="chart-top-left">
+              <div class="timeframe-dropdown">
+                <button
+                  class="timeframe-trigger"
+                  id="timeframeTrigger"
+                  aria-expanded="false"
+                >
+                  <span id="selectedTimeframe">1D</span>
+                  <span class="menu-chevron" aria-hidden="true"></span>
+                </button>
+
+                <div class="timeframe-menu" id="timeframeMenu">
+                  <button data-timeframe="1d">1d</button>
+                  <button data-timeframe="5d">5d</button>
+                  <button data-timeframe="1mo">1mo</button>
+                  <button data-timeframe="3mo">3mo</button>
+                  <button data-timeframe="6mo">6mo</button>
+                  <button data-timeframe="1y">1y</button>
+                  <button data-timeframe="2y">2y</button>
+                  <button data-timeframe="5y">5y</button>
+                  <button data-timeframe="10y">10y</button>
+                  <button data-timeframe="ytd">YTD</button>
+                  <button data-timeframe="max">MAX</button>
+                </div>
+              </div>
+
+              <div class="chart-mode-buttons">
+                <button
+                  class="chart-mode balance-mode-button active"
+                  data-mode="equity"
+                >
+                  💰 Equity
+                </button>
+                <button
+                  class="chart-mode balance-mode-button"
+                  data-mode="assets"
+                >
+                  🏢 Assets
+                </button>
+                <button class="chart-mode balance-mode-button" data-mode="cash">
+                  💵 Cash
+                </button>
+              </div>
+
+            </div>
+
+            <div class="chart-top-right">
+              <div class="chart-actions" id="chart-actions">
+                <button
+                  class="icon-soft-btn"
+                  title="Exponential Moving Average 20"
+                  id="moving_average_button">
+                  ⌁
+                </button>
+                <button
+                  class="icon-soft-btn"
+                  title="Volume"
+                  id="volume_button">
+                  ▥
+                </button>
+                <button
+                  class="icon-soft-btn"
+                  title="Compare Equity vs SPY"
+                  id="spy_compare_button"
+                  hidden>
+                  SPY
+                </button>
+              </div>
+
+              <button class="icon-soft-btn" title="Theme" id="theme_button">
+                ◐
+              </button>
+
+              <div class="indicators-wrapper">
+                <button
+                  class="icon-soft-btn"
+                  id="indicators_button"
+                  aria-expanded="false"
+                >
+                  Indicators
+                </button>
+                <div class="indicators-menu" id="indicators_menu">
+                  <div class="indicator-row">
+                    <div class="indicator-info">
+                      <div class="indicator-title-line">
+                        <span class="indicator-name">RSI 14</span>
+
+                        <span class="indicator-help">
+                          <button class="indicator-info-button" type="button">
+                            i
+                          </button>
+                          <span class="indicator-tooltip" hidden>
+                            RSI measures momentum from 0 to 100. Above 70 can
+                            mean overbought, below 30 can mean oversold.
+                          </span>
+                        </span>
+                      </div>
+
+                      <small class="indicator-description"
+                        >Momentum Oscillator</small
+                      >
+                    </div>
+
+                    <label class="indicator-switch">
+                      <input
+                        id="rsi_toggle"
+                        class="indicator-toggle"
+                        data-indicator="rsi"
+                        data-indicator-type="lower"
+                        type="checkbox"
+                      />
+                      <span class="indicator-slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="indicator-row">
+                    <div class="indicator-info">
+                      <div class="indicator-title-line">
+                        <span class="indicator-name">MACD</span>
+
+                        <span class="indicator-help">
+                          <button class="indicator-info-button" type="button">
+                            i
+                          </button>
+                          <span class="indicator-tooltip" hidden>
+                            MACD compares moving averages to show changes in
+                            trend strength and momentum.
+                          </span>
+                        </span>
+                      </div>
+
+                      <small class="indicator-description"
+                        >Trend momentum</small
+                      >
+                    </div>
+
+                    <label class="indicator-switch">
+                      <input
+                        id="macd_toggle"
+                        class="indicator-toggle"
+                        data-indicator="macd"
+                        data-indicator-type="lower"
+                        type="checkbox"
+                      />
+                      <span class="indicator-slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="indicator-row">
+                    <div class="indicator-info">
+                      <div class="indicator-title-line">
+                        <span class="indicator-name">Bollinger Bands</span>
+
+                        <span class="indicator-help">
+                          <button class="indicator-info-button" type="button">
+                            i
+                          </button>
+                          <span class="indicator-tooltip" hidden>
+                            Bollinger Bands show price volatility using an upper
+                            and lower band around a moving average.
+                          </span>
+                        </span>
+                      </div>
+
+                      <small class="indicator-description"
+                        >Volatility bands</small
+                      >
+                    </div>
+
+                    <label class="indicator-switch">
+                      <input
+                        id="bollinger_toggle"
+                        class="indicator-toggle"
+                        data-indicator="bollinger"
+                        data-indicator-type="overlay"
+                        type="checkbox"
+                      />
+                      <span class="indicator-slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="indicator-row">
+                    <div class="indicator-info">
+                      <div class="indicator-title-line">
+                        <span class="indicator-name">ATR 14</span>
+
+                        <span class="indicator-help">
+                          <button class="indicator-info-button" type="button">
+                            i
+                          </button>
+                          <span class="indicator-tooltip" hidden>
+                            ATR measures average price movement. Higher ATR
+                            means higher volatility.
+                          </span>
+                        </span>
+                      </div>
+
+                      <small class="indicator-description"
+                        >Volatility risk</small
+                      >
+                    </div>
+
+                    <label class="indicator-switch">
+                      <input
+                        id="atr_toggle"
+                        class="indicator-toggle"
+                        data-indicator="atr"
+                        data-indicator-type="lower"
+                        type="checkbox"
+                      />
+                      <span class="indicator-slider"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="compare-wrapper">
+                <button class="icon-soft-btn" id="compare_button">
+                  ⊕ Compare
+                </button>
+                <div class="compare-menu" id="compare_menu">
+                  <input
+                    id="compare_input"
+                    role="combobox"
+                    aria-autocomplete="list"
+                    aria-controls="compare_suggestions"
+                    aria-expanded="false"
+                  />
+                  <div
+                    class="compare-suggestions"
+                    id="compare_suggestions"
+                    hidden
+                  ></div>
+                  <div
+                    class="active-comparisons"
+                    id="active_comparisons"
+                    hidden
+                  ></div>
+                  <button
+                    class="compare-add-button"
+                    role="listbox"
+                    id="compare_add_button"
+                  >
+                    ADD
+                  </button>
+                </div>
+              </div>
+              <button class="icon-soft-btn" id="chart_fullscreen" title="Fullscreen">
+                ⤢
+              </button>
+              <button
+                class="icon-soft-btn"
+                id="chart_export_button"
+                title="Export chart as PNG"
+              >
+                📷
+              </button>
+              <div class="chart-settings-wrapper">
+                <button
+                  class="icon-soft-btn"
+                  id="chart_settings_button"
+                  title="Chart settings"
+                  aria-expanded="false"
+                  aria-controls="chart_settings_menu"
+                >
+                  ⚙
+                </button>
+                <div
+                  class="chart-settings-menu"
+                  id="chart_settings_menu"
+                  aria-hidden="true"
+                >
+                  <button data-chart-setting-action="fit">Fit content</button>
+                  <button data-chart-setting-action="grid">Toggle grid</button>
+                  <button data-chart-setting-action="theme">Toggle theme</button>
+                  <button data-chart-setting-action="clear-indicators">
+                    Clear indicators
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-content">
+            <div class="chart-tools">
+              <button
+                class="tool-btn active"
+                title="Crosshair"
+                id="crosshair_button"
+              >
+                ┼
+              </button>
+
+              <button class="tool-btn" title="Toggle Grid" id="grid_button">
+                ⌗
+              </button>
+
+              <button
+                class="tool-btn"
+                title="Focus / Fullscreen"
+                id="focus_button"
+              >
+                ◉
+              </button>
+            </div>
+
+            <div
+              class="chart-main"
+              style="display: flex; flex-direction: column; height: 100%"
+            >
+              <div class="chart-header-row">
+                <div class="pair-info">
+                  <span id="chartTicker">MSFT</span>
+                  <span>•</span>
+                  <span id="chartTimeframe">1D</span>
+                  <span>•</span>
+                  <span id="chartModeLabel">Equity</span>
+                </div>
+                <div class="ohlc">
+                  <span>O <b class="green-text" id="openPrice">30.02</b></span>
+                  <span>H <b class="red-text" id="highPrice">30.62</b></span>
+                  <span>L <b class="red-text" id="lowPrice">29.88</b></span>
+                  <span>C <b class="red-text" id="closePrice">30.09</b></span>
+                </div>
+              </div>
+
+              <div class="volume-label" id="volumeLabelContainer" hidden>
+                Volume <span class="green-text" id="volumeLabel"></span>
+              </div>
+
+              <div
+                class="chart-box"
+                id="chartBox"
+                style="
+                  position: relative;
+                  width: 100%;
+                  flex-grow: 1;
+                  min-height: 260px;
+                  margin-top: 15px;
+                  padding: 0;
+                  border-radius: 8px;
+                  overflow: hidden;
+                "
+              >
+                <div
+                  id="chartContainer"
+                  style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                  "
+                ></div>
+
+                <div
+                  class="chart-tooltip"
+                  id="chartTooltip"
+                  style="position: relative; z-index: 2"
+                >
+                  <strong>MSFT</strong>
+                  <div class="tooltip-row"><span>Date</span><b>--</b></div>
+                  <div class="tooltip-row"><span>Open</span><b>--</b></div>
+                  <div class="tooltip-row"><span>High</span><b>--</b></div>
+                  <div class="tooltip-row"><span>Low</span><b>--</b></div>
+                  <div class="tooltip-row"><span>Close</span><b>--</b></div>
+                  <div class="tooltip-row"><span>Volume</span><b>--</b></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="right-side">
+          <div class="mini-cards">
+            <div class="mini-card positive-card" id="todayGainCard">
+              <div class="mini-icon" id="todayGainIcon">↗</div>
+              <div class="mini-content">
+                <div class="mini-title">Today´s Gain</div>
+                <div class="mini-value" id="todayGainValue">$23.30</div>
+              </div>
+              <div class="mini-pill green-pill" id="todayGainPct">+1.29%</div>
+            </div>
+
+            <div class="mini-card positive-card" id="equityCard">
+              <div class="mini-icon" id="equityIcon">↗</div>
+              <div class="mini-content">
+                <div class="mini-title">Total Equity</div>
+                <div class="mini-value" id="equityValue">$10,036.00</div>
+              </div>
+              <div class="mini-pill green-pill" id="equityPct">+1.29%</div>
+            </div>
+          </div>
+
+          <div class="panel control-panel">
+            <div class="control-header">
+              <div>
+                <h2>Control Panel</h2>
+                <p class="control-subtitle">Run the bot, manage trades, and tune risk without touching code.</p>
+              </div>
+
+              <div class="control-tabs" role="tablist" aria-label="Bot controls">
+                <button class="control-tab active" data-tab="config" type="button">
+                  AI Config
+                </button>
+                <button class="control-tab" data-tab="trade" type="button">Trade</button>
+                <button class="control-tab" data-tab="settings" type="button">Settings</button>
+              </div>
+            </div>
+
+            <div class="control-tab-panel active" id="configPanel">
+              <div class="control-grid">
+                <div class="control-column">
+                  <h3>News sources</h3>
+
+                  <div class="toggle-row">
+                    <span>Yahoo</span>
+                    <label class="switch">
+                      <input
+                        class="news-toggle"
+                        data-source="Yahoo"
+                        type="checkbox"
+                      />
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="toggle-row">
+                    <span>Bloomberg</span>
+                    <label class="switch">
+                      <input
+                        class="news-toggle"
+                        data-source="Bloomberg"
+                        type="checkbox"
+                      />
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="toggle-row">
+                    <span>Forbes</span>
+                    <label class="switch">
+                      <input
+                        class="news-toggle"
+                        data-source="Forbes"
+                        type="checkbox"
+                      />
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="toggle-row">
+                    <span>EDGAR</span>
+                    <label class="switch">
+                      <input
+                        class="news-toggle"
+                        data-source="EDGAR"
+                        type="checkbox"
+                      />
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+
+                  <p class="settings-help-text">News-source switches save immediately and call the matching backend toggle command.</p>
+                </div>
+
+                <div class="control-column">
+                  <h3>AI Configuration</h3>
+
+                  <label class="settings-field-label" for="aiModelSelect">LLM model</label>
+                  <select class="select-box" id="aiModelSelect" data-setting-key="LLM_model">
+                    <option value="llama3:latest">Meta LLaMA 3</option>
+                    <option value="deepseek-r1:8b">DeepSeek R1 8B</option>
+                    <option value="qwen2.5">Qwen 2.5</option>
+                    <option value="mistral">Mistral</option>
+                  </select>
+
+                  <div class="config-row">
+                    <div>
+                      <div class="config-title">Dynamic risk per trade</div>
+                      <p>Let the AI use the configured risk mode when sizing trades.</p>
+                    </div>
+
+                    <label class="switch">
+                      <input id="aiRptToggle" type="checkbox" />
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+
+                  <label class="settings-field-label" for="rptInput">Risk per trade (%)</label>
+                  <input
+                    class="input-box"
+                    id="rptInput"
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="0.01"
+                    value="0.50"
+                  />
+                </div>
+              </div>
+
+              <div class="control-actions">
+                <button class="danger-btn" id="liquidateBtn" type="button">
+                  SELL EVERYTHING
+                </button>
+                <button class="danger-btn" id="startStopBtn" type="button">
+                  START NEWS BOT
+                </button>
+                <button class="secondary-action-btn" id="checkNewsBtn" type="button">
+                  CHECK NEWS NOW
+                </button>
+                <button class="secondary-action-btn" id="checkStockBtn" type="button">
+                  CHECK POSITIONS NOW
+                </button>
+              </div>
+            </div>
+
+            <div class="control-tab-panel" id="tradePanel">
+              <div class="trade-panel-layout">
+                <div class="trade-card">
+                  <h3>Buy Stock</h3>
+
+                  <label class="trade-label">Ticker</label>
+                  <div class="ticker-search-box">
+                    <input
+                      id="buyTickerInput"
+                      type="text"
+                      placeholder="Any ticker... e.g. MSFT"
+                      autocomplete="off"
+                    />
+                    <span>⌕</span>
+                  </div>
+
+                  <div class="suggestion-list">
+                    <button data-buy-ticker="MSFT" type="button">
+                      MSFT <small>Microsoft</small>
+                    </button>
+                    <button data-buy-ticker="AAPL" type="button">
+                      AAPL <small>Apple</small>
+                    </button>
+                    <button data-buy-ticker="NVDA" type="button">
+                      NVDA <small>Nvidia</small>
+                    </button>
+                    <button data-buy-ticker="TSLA" type="button">
+                      TSLA <small>Tesla</small>
+                    </button>
+                  </div>
+
+                  <label class="trade-label">Amount</label>
+                  <input
+                    class="trade-input"
+                    id="buyAmountInput"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="$ Amount"
+                  />
+
+                  <button class="trade-buy-btn" id="buyBtn" type="button">
+                    BUY SELECTED
+                  </button>
+                </div>
+
+                <div class="trade-card">
+                  <h3>Sell Position</h3>
+
+                  <label class="trade-label">Portfolio Asset</label>
+                  <select class="trade-input" id="sellAssetSelect"></select>
+
+                  <div class="full-position-note">
+                    <span class="full-position-icon" aria-hidden="true">!</span>
+                    <div>
+                      <strong>Full position sale</strong>
+                      <small>This action sells every share in the selected trade.</small>
+                    </div>
+                  </div>
+
+                  <button class="trade-sell-btn" id="sellBtn" type="button">
+                    SELL FULL POSITION
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="control-tab-panel" id="settingsPanel">
+              <div class="settings-panel-header">
+                <div>
+                  <h3>Bot Settings</h3>
+                  <p>These values map directly to your Python Settings file and are saved through <code>update_settings</code>.</p>
+                </div>
+                <span class="settings-status-badge" id="settingsStatusBadge">Not loaded</span>
+              </div>
+
+              <div class="settings-scroll">
+                <div class="settings-section">
+                  <div class="settings-section-title">Trade rules</div>
+                  <div class="settings-form-grid">
+                    <label class="settings-field">
+                      <span>Execution mode</span>
+                      <select class="settings-input" id="tradeExecutionModeSelect" data-setting-key="trade_execution_mode">
+                        <option value="normal">Normal</option>
+                        <option value="conservative">Conservative</option>
+                        <option value="aggressive">Aggressive</option>
+                      </select>
+                    </label>
+                    <label class="settings-field">
+                      <span>Risk per trade (%)</span>
+                      <input class="settings-input" id="tradeRiskPctInput" data-setting-key="trade_risk_per_trade_pct" type="number" min="0" max="100" step="0.01" />
+                    </label>
+                    <label class="settings-field">
+                      <span>Target gain (%)</span>
+                      <input class="settings-input" id="targetGainPctInput" data-setting-key="trade_target_gain_pct" type="number" min="0" max="100" step="0.01" />
+                    </label>
+                    <label class="settings-field">
+                      <span>Stop loss (%)</span>
+                      <input class="settings-input" id="stopLossPctInput" data-setting-key="trade_stop_loss_pct" type="number" min="0" max="100" step="0.01" />
+                    </label>
+                  </div>
+                </div>
+
+                <div class="settings-section">
+                  <div class="settings-section-title">AI modes</div>
+                  <div class="settings-form-grid">
+                    <label class="settings-field">
+                      <span>Dynamic risk mode</span>
+                      <select class="settings-input" id="dynamicRiskModeSelect" data-setting-key="ai_dynamic_risk_mode">
+                        <option value="normal">Normal</option>
+                        <option value="conservative">Conservative</option>
+                        <option value="aggressive">Aggressive</option>
+                      </select>
+                    </label>
+                    <label class="settings-field">
+                      <span>Dynamic gain mode</span>
+                      <select class="settings-input" id="dynamicGainModeSelect" data-setting-key="ai_dynamic_gain_mode">
+                        <option value="normal">Normal</option>
+                        <option value="conservative">Conservative</option>
+                        <option value="aggressive">Aggressive</option>
+                      </select>
+                    </label>
+                    <label class="settings-field">
+                      <span>Dynamic loss mode</span>
+                      <select class="settings-input" id="dynamicLossModeSelect" data-setting-key="ai_dynamic_loss_mode">
+                        <option value="normal">Normal</option>
+                        <option value="conservative">Conservative</option>
+                        <option value="aggressive">Aggressive</option>
+                      </select>
+                    </label>
+                    <label class="settings-field">
+                      <span>Strategy version</span>
+                      <input class="settings-input" id="strategyVersionInput" data-setting-key="strategy_version" type="text" placeholder="v1" />
+                    </label>
+                  </div>
+                </div>
+
+                <div class="settings-section">
+                  <div class="settings-section-title">Circuit breaker</div>
+                  <div class="settings-form-grid">
+                    <label class="settings-field">
+                      <span>SPY hard stop (%)</span>
+                      <input class="settings-input" id="spyHardStopInput" data-setting-key="cb_spy_hard_stop" type="number" step="0.01" />
+                    </label>
+                    <label class="settings-field">
+                      <span>VIX high level</span>
+                      <input class="settings-input" id="vixHighInput" data-setting-key="cb_vix_high" type="number" step="0.01" />
+                    </label>
+                    <label class="settings-field">
+                      <span>VIX spike (%)</span>
+                      <input class="settings-input" id="vixSpikeInput" data-setting-key="cb_vix_spike" type="number" step="0.01" />
+                    </label>
+                    <label class="settings-field">
+                      <span>TNX spike (%)</span>
+                      <input class="settings-input" id="tnxSpikeInput" data-setting-key="cb_tnx_spike" type="number" step="0.01" />
+                    </label>
+                    <label class="settings-field">
+                      <span>Breadth drop (%)</span>
+                      <input class="settings-input" id="breadthDropInput" data-setting-key="cb_breadth_drop" type="number" step="0.01" />
+                    </label>
+                    <label class="settings-field">
+                      <span>Min warning score</span>
+                      <input class="settings-input" id="warningScoreInput" data-setting-key="cb_min_warning_score" type="number" min="1" step="1" />
+                    </label>
+                  </div>
+                </div>
+
+                <div class="settings-section">
+                  <div class="settings-section-title">Macro safety</div>
+                  <div class="settings-form-grid">
+                    <label class="settings-field">
+                      <span>Gold spike (%)</span>
+                      <input class="settings-input" id="goldSpikeInput" data-setting-key="gold_spike" type="number" step="0.01" />
+                    </label>
+                    <label class="settings-field">
+                      <span>Oil spike (%)</span>
+                      <input class="settings-input" id="oilSpikeInput" data-setting-key="oil_spike" type="number" step="0.01" />
+                    </label>
+                    <label class="settings-field">
+                      <span>Macro buffer (minutes)</span>
+                      <input class="settings-input" id="macroBufferInput" data-setting-key="cb_macro_buffer_minutes" type="number" min="0" step="1" />
+                    </label>
+                    <label class="settings-field">
+                      <span>Prompt version</span>
+                      <input class="settings-input" id="promptVersionInput" data-setting-key="prompt_version" type="text" placeholder="v1" />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-actions">
+                <button class="secondary-action-btn" id="reloadSettingsBtn" type="button">Reload</button>
+                <button class="secondary-action-btn" id="resetSettingsFormBtn" type="button">Reset form</button>
+                <button class="trade-buy-btn settings-save-btn" id="saveSettingsBtn" type="button">Save settings</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bottom-grid">
+        <div class="panel shares-panel">
+          <div class="panel-header">
+            <h2>Current Shares</h2>
+
+            <div class="search-wrap">
+              <input
+                id="sharesSearch"
+                type="text"
+                placeholder="Search portfolio..."
+              />
+              <span class="search-icon">⌕</span>
+            </div>
+          </div>
+
+          <div class="search-sub" id="sharesHint">(MSFT)</div>
+
+          <div class="shares-table">
+            <div class="table-head shares-head">
+              <span>Company</span>
+              <span>Entry</span>
+              <span>Current</span>
+              <span>PnL</span>
+            </div>
+
+            <div class="shares-scroll" id="sharesScroll"></div>
+          </div>
+        </div>
+
+        <div class="panel activity-panel">
+          <div class="panel-header">
+            <h2>AI Activity</h2>
+
+            <div class="activity-header-actions">
+              <button class="small-panel-btn active" data-activity-view="live">
+                Live
+              </button>
+              <button class="small-panel-btn" data-activity-view="journal">
+                Trade Journal
+              </button>
+              <button class="small-panel-btn" id="openJournalDrawer">
+                View All
+              </button>
+            </div>
+          </div>
+
+          <div class="scheduler-strip">
+            <div class="scheduler-strip-top">
+              <div class="bot-status">
+                <span id="bot-status-dot" class="status-dot off"></span>
+                <span>Bot: <b id="botStatusLabel">PAUSED</b></span>
+              </div>
+
+              <button class="small-panel-btn" id="schedulerBtn">
+                Scheduler
+              </button>
+            </div>
+
+            <div class="scheduler-summary">
+              <span>Next News: <b id="nextNewsLabel">10:31 AM</b></span>
+              <span>Next Risk: <b id="nextRiskLabel">10:35 AM</b></span>
+            </div>
+
+            <div class="scheduler-popover" id="schedulerPopover">
+              <div id="schedulerRows"></div>
+            </div>
+          </div>
+
+          <div class="activity-section active" id="liveActivitySection">
+            <div class="activity-scroll" id="activityScroll"></div>
+          </div>
+
+          <div class="activity-section" id="tradeJournalSection">
+            <div class="trade-journal-scroll" id="tradeJournalScroll"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <aside class="journal-drawer" id="journalDrawer">
+      <div class="journal-drawer-header">
+        <div>
+          <h2>Trade Journal</h2>
+          <p>
+            Permanent log for real actions: buys, sells, risk exits and
+            liquidations.
+          </p>
+        </div>
+        <button class="drawer-close" id="closeJournalDrawer">&times;</button>
+      </div>
+
+      <div class="journal-filters">
+        <button class="journal-filter active" data-journal-filter="ALL">
+          All
+        </button>
+        <button class="journal-filter" data-journal-filter="BUY">Buy</button>
+        <button class="journal-filter" data-journal-filter="SELL">Sell</button>
+        <button class="journal-filter" data-journal-filter="RISK">Risk</button>
+        <button class="journal-filter" data-journal-filter="LIQUIDATE">
+          Liquidate
+        </button>
+      </div>
+
+      <div class="journal-drawer-body" id="journalDrawerBody"></div>
+    </aside>
+
+    <!-- Reusable Trade Detail Modal: hidden by default for better performance -->
+    <div class="modal-overlay" id="tradeModalOverlay">
+      <div class="decision-modal">
+        <div class="modal-header">
+          <div>
+            <div class="ticker-row">
+              <h1 class="modal-ticker" id="modalTicker">MSFT</h1>
+              <span class="decision-badge buy" id="modalBadge">BUY</span>
+            </div>
+            <p class="company-name" id="modalCompany">Microsoft Corp.</p>
+          </div>
+
+          <button class="close-btn" id="closeModal">&times;</button>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label" id="modalPriceOneLabel">Buy Price</span>
+            <span class="stat-value" id="modalBuy">$28.90</span>
+          </div>
+
+          <div class="stat-card">
+            <span class="stat-label" id="modalPriceTwoLabel"
+              >Current Price</span
+            >
+            <span class="stat-value" id="modalCurrent">$30.09</span>
+          </div>
+
+          <div class="stat-card">
+            <span class="stat-label">Gain</span>
+            <span class="stat-value positive" id="modalGain">+$1.19</span>
+          </div>
+
+          <div class="stat-card">
+            <span class="stat-label">PnL</span>
+            <span class="stat-value positive" id="modalPnl">+4.12%</span>
+          </div>
+        </div>
+
+        <section class="info-card">
+          <div class="section-title">
+            <span class="section-icon">📰</span>
+            <h2>News Summary</h2>
+          </div>
+
+          <p class="section-text" id="modalNews"></p>
+
+          <div class="meta-row">
+            <span id="modalSource">Source: AI digest</span>
+            <span id="modalTimestamp">--</span>
+          </div>
+        </section>
+
+        <section class="info-card">
+          <div class="section-title">
+            <span class="section-icon">🧠</span>
+            <h2 id="modalReasonTitle">Why the AI Bought</h2>
+          </div>
+
+          <p class="section-text" id="modalReason"></p>
+
+          <div class="confidence-block">
+            <div class="confidence-top">
+              <span>Confidence</span>
+              <span class="positive" id="modalConfidence">0.65</span>
+            </div>
+
+            <div class="confidence-bar">
+              <div class="confidence-fill" id="modalConfidenceFill"></div>
+            </div>
+
+            <div class="confidence-scale">
+              <span>0</span>
+              <span>0.5</span>
+              <span>1.0</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="info-card">
+          <div class="section-title">
+            <span class="section-icon">📌</span>
+            <h2>Trade Details</h2>
+          </div>
+
+          <div class="dossier-list">
+            <div class="dossier-row">
+              <span class="dossier-label">Trade ID</span>
+              <span class="dossier-value" id="modalTradeId">TRD-0000</span>
+            </div>
+            <div class="dossier-row">
+              <span class="dossier-label">Shares</span>
+              <span class="dossier-value" id="modalShares">0</span>
+            </div>
+            <div class="dossier-row">
+              <span class="dossier-label">Stop Loss</span>
+              <span class="dossier-value" id="modalStopLoss">--</span>
+            </div>
+            <div class="dossier-row">
+              <span class="dossier-label">Take Profit</span>
+              <span class="dossier-value" id="modalTakeProfit">--</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="info-card dossier-card">
+          <div class="section-title">
+            <span class="section-icon">🏢</span>
+            <h2>Company Dossier</h2>
+          </div>
+
+          <div class="dossier-grid">
+            <div class="dossier-list">
+              <div class="dossier-row">
+                <span class="dossier-label">Sector</span>
+                <span class="dossier-value" id="modalSector">Technology</span>
+              </div>
+
+              <div class="dossier-row">
+                <span class="dossier-label">Market Cap</span>
+                <span class="dossier-value" id="modalCap">$2.81T</span>
+              </div>
+
+              <div class="dossier-row">
+                <span class="dossier-label">Revenue Trend</span>
+                <span class="dossier-value positive" id="modalRevenue"
+                  >Up 15% YoY</span
+                >
+              </div>
+
+              <div class="dossier-row">
+                <span class="dossier-label">Risk Level</span>
+                <span class="dossier-value positive" id="modalRisk">Low</span>
+              </div>
+
+              <div class="dossier-row">
+                <span class="dossier-label">Outlook</span>
+                <span class="dossier-value positive" id="modalOutlook"
+                  >Bullish</span
+                >
+              </div>
+            </div>
+
+            <div class="company-box">
+              <div class="company-mark" id="modalLogo">MS</div>
+              <h3 id="modalCompanyShort">Microsoft</h3>
+              <p id="modalFounded">Founded 1975</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="modal-footer">
+          <button class="modal-btn btn-secondary" id="modalCloseBottom">
+            Close
+          </button>
+          <button class="modal-btn btn-primary" id="modalChartBtn">
+            View On Chart ↗
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack"></div>
+
+    <script src="./js/core/config.js?v=20260826v3"></script>
+    <script src="./js/core/state.js?v=20260826v3"></script>
+    <script src="./js/data/company-profiles.js?v=20260826v3"></script>
+    <script src="./js/data/demo-data.js?v=20260826v3"></script>
+    <script src="./js/services/api.js?v=20260826v3"></script>
+    <script src="./js/utils/helpers.js?v=20260826v3"></script>
+
+    <script src="./js/features/chart/chart-state.js?v=20260826v3"></script>
+    <script src="./js/features/chart/chart-demo.js?v=20260826v3"></script>
+    <script src="./js/features/chart/chart-options.js?v=20260826v3"></script>
+    <script src="./js/features/chart/chart-adapters.js?v=20260826v3"></script>
+    <script src="./js/features/chart/chart-lifecycle.js?v=20260826v3"></script>
+    <script src="./js/features/chart/chart-normalizers.js?v=20260826v3"></script>
+    <script src="./js/features/chart/chart-ticker.js?v=20260826v3"></script>
+    <script src="./js/features/chart/chart-portfolio.js?v=20260826v3"></script>
+    <script src="./js/features/chart/chart-router.js?v=20260826v3"></script>
+    <script src="./js/features/chart/chart-dynamic-controls.js?v=20260826v3"></script>
+
+    <script src="./js/features/compare/compare.js?v=20260826v3"></script>
+    <script src="./js/features/portfolio/summary-cards.js?v=20260826v3"></script>
+    <script src="./js/features/portfolio/positions.js?v=20260826v3"></script>
+    <script src="./js/features/trading/actions.js?v=20260826v3"></script>
+    <script src="./js/features/activity/activity.js?v=20260826v3"></script>
+    <script src="./js/features/activity/event_stream.js?v=20260826v3"></script>
+    <script src="./js/features/settings/settings.js?v=20260826v3"></script>
+    <script src="./js/features/analyzer/trade-analyzer.js?v=20260826v3"></script>
+
+    <script src="./js/features/indicators/math.js?v=20260826v3"></script>
+    <script src="./js/features/indicators/calculators.js?v=20260826v3"></script>
+    <script src="./js/features/indicators/renderers.js?v=20260826v3"></script>
+    <script src="./js/features/indicators/controller.js?v=20260826v3"></script>
+
+    <script src="./js/features/chart/chart-display-controls.js?v=20260826v3"></script>
+    <script src="./js/features/chart/chart-actions.js?v=20260826v3"></script>
+    <script src="./js/features/chart/chart-indicator-controls.js?v=20260826v3"></script>
+    <script src="./js/features/chart/chart-navigation.js?v=20260826v3"></script>
+
+    <script src="./js/features/menu/menu.js?v=20260826v3"></script>
+    
+
+    <script src="./js/main.js?v=20260826v3"></script>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+:root {
+  --bg: #191919;
+  --panel: #000000;
+  --panel-soft: #08080a;
+  --panel-card: #0d0f14;
+  --panel-card-2: #11131a;
+  --text: #f4f4f5;
+  --muted: #b4b4bb;
+  --muted-2: #8d8d96;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-soft: rgba(255, 255, 255, 0.05);
+  --green: #24d26c;
+  --green-soft: rgba(36, 210, 108, 0.13);
+  --red: #f15b5b;
+  --red-soft: rgba(241, 91, 91, 0.14);
+  --orange: #ffb84d;
+  --orange-soft: rgba(255, 184, 77, 0.14);
+  --blue: #3a92ff;
+  --blue-soft: rgba(58, 146, 255, 0.14);
+  --button-red: #d43727;
+  --search: #5b5564;
+  --row: #5f5b66;
+  --card-gap: 24px;
+  --radius-lg: 24px;
+  --radius-md: 18px;
+  --radius-sm: 14px;
+  --radius-pill: 999px;
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+  --font:
+    Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --dashboard-max: 1650px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(36, 210, 108, 0.035),
+      transparent 28%
+    ),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  min-height: 100vh;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dashboard {
+  width: 100%;
+  max-width: var(--dashboard-max);
+  margin: 0 auto;
+  padding: clamp(14px, 2vw, 28px);
+  min-height: 100vh;
+}
+
+.top-grid {
+  display: grid;
+  grid-template-columns: minmax(650px, 1.85fr) minmax(380px, 1fr);
+  gap: var(--card-gap);
+  margin-bottom: var(--card-gap);
+}
+
+.bottom-grid {
+  display: grid;
+  grid-template-columns: minmax(420px, 1fr) minmax(420px, 1fr);
+  gap: var(--card-gap);
+}
+
+.panel {
+  background: var(--panel);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.green-text,
+.positive {
+  color: var(--green);
+}
+
+.red-text,
+.negative {
+  color: var(--red);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pill-success {
+  color: var(--green);
+  background: var(--green-soft);
+  border: 1px solid rgba(36, 210, 108, 0.22);
+}
+
+.pill-danger {
+  color: #ff6a73;
+  background: var(--red-soft);
+  border: 1px solid rgba(241, 91, 91, 0.22);
+}
+
+.pill-muted {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.pill-warning {
+  color: var(--orange);
+  background: var(--orange-soft);
+  border: 1px solid rgba(255, 184, 77, 0.2);
+}

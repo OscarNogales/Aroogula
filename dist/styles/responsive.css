@@ -1,0 +1,231 @@
+/* ---------------- RESPONSIVE ---------------- */
+
+@media (max-width: 1250px) {
+  .top-grid,
+  .bottom-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-panel {
+    min-height: 560px;
+  }
+}
+
+@media (max-width: 900px) {
+  .mini-cards,
+  .control-grid,
+  .trade-panel-layout,
+  .dossier-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-header,
+  .control-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-wrap {
+    width: 100%;
+  }
+
+  .shares-head,
+  .share-row {
+    grid-template-columns: 1.7fr 1fr 1fr 1fr;
+    font-size: 0.9rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .scheduler-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard {
+    padding: 14px;
+  }
+
+  .chart-panel,
+  .shares-panel,
+  .activity-panel,
+  .control-panel {
+    padding: 18px;
+  }
+
+  .chart-content {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-tools {
+    display: none;
+  }
+
+  .chart-box {
+    min-height: 360px;
+  }
+
+  .mini-card {
+    flex-wrap: wrap;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .modal-ticker {
+    font-size: 2.35rem;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+  }
+}
+
+/* ---------------- V2.1 LAYOUT + MENU POLISH ---------------- */
+
+/* Thicker, centered chevron for the custom timeframe dropdown. */
+.menu-chevron {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translate(-1px, -1px);
+  transform-origin: center;
+  transition: transform 0.18s ease;
+}
+
+.timeframe-trigger[aria-expanded="true"] .menu-chevron {
+  transform: rotate(225deg) translate(-1px, -1px);
+}
+
+/* Replace the browser's uneven native arrows with one consistent chevron. */
+select.select-box,
+select.trade-input {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 44px;
+  background-color: #f1f1f1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 14 10'%3E%3Cpath d='M2 2.5 7 7.5 12 2.5' fill='none' stroke='%232b2b2f' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 14px 10px;
+  cursor: pointer;
+}
+
+select.select-box:hover,
+select.trade-input:hover,
+select.select-box:focus,
+select.trade-input:focus {
+  box-shadow: 0 0 0 3px rgba(36, 210, 108, 0.12);
+}
+
+/* The activity view now consumes all remaining room inside the panel. */
+.activity-panel {
+  height: 455px;
+  min-height: 455px;
+  max-height: 455px;
+  overflow: hidden;
+}
+
+.activity-section {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.activity-section.active {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-scroll,
+.trade-journal-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Full-position-only sell state. */
+.full-position-note {
+  min-height: 82px;
+  margin-top: 18px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 14px;
+  color: var(--muted);
+  background: rgba(241, 91, 91, 0.07);
+  border: 1px solid rgba(241, 91, 91, 0.16);
+}
+
+.full-position-note strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text);
+  font-size: 0.94rem;
+}
+
+.full-position-note small {
+  display: block;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.full-position-icon {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: #ff7b82;
+  background: rgba(241, 91, 91, 0.13);
+  border: 1px solid rgba(241, 91, 91, 0.22);
+  font-weight: 800;
+}
+
+@media (max-width: 1250px) {
+  .activity-panel {
+    height: 455px;
+  }
+}
+
+@media (max-width: 700px) {
+  .activity-panel {
+    height: 430px;
+    min-height: 430px;
+    max-height: 430px;
+  }
+}
+
+
+@media (max-width: 720px) {
+  .control-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .settings-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-actions,
+  .control-actions {
+    justify-content: stretch;
+  }
+
+  .secondary-action-btn,
+  .settings-save-btn,
+  .danger-btn {
+    width: 100%;
+  }
+}
